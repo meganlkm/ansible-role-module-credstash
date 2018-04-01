@@ -30,17 +30,17 @@ def main():
       module.params.get('table'), module.params.get('context'))
     result['changed'] = True
 
-  try: 
+  try:
     result['output'] = credstash.getSecret(module.params.get('secret'), module.params.get('version'), \
-      module.params.get('region'), module.params.get('table'), module.params.get('context')) 
+      module.params.get('region'), module.params.get('table'), module.params.get('context'))
   except credstash.ItemNotFound:
     module.fail_json(msg="credstash secret not found")
-  
+
   if module.params.get('fact') is not None:
     if module.params.get('fact_type') == 'yaml':
       result['ansible_facts'] = { module.params.get('fact'): yaml.safe_load(result['output']) }
     elif module.params.get('fact_type') == 'json':
-      result['ansible_facts'] = { module.params.get('fact'): json.load(result['output']) } 
+      result['ansible_facts'] = { module.params.get('fact'): json.load(result['output']) }
     else:
       result['ansible_facts'] = { module.params.get('fact'): result['output'] }
 
