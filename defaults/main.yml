@@ -1,1 +1,3 @@
-credstash_version: 1.14.0
+# v1.13.0 replaced pycrypto with cryptography
+# which causes this module to fail.
+credstash_version: 1.12.0
